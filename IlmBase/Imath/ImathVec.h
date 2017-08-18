@@ -190,7 +190,8 @@ template <class T> class Vec2
 
     Vec2		operator - () const;
     const Vec2 &	negate ();
-
+    const Vec2 &	invert ();
+    
 
     //------------------------------
     // Component-wise multiplication
@@ -402,7 +403,8 @@ template <class T> class Vec3
 
     Vec3		operator - () const;
     const Vec3 &	negate ();
-
+    const Vec3 &	invert ();
+    
 
     //------------------------------
     // Component-wise multiplication
@@ -584,7 +586,8 @@ template <class T> class Vec4
 
     Vec4            operator - () const;
     const Vec4 &    negate ();
-
+    const Vec4 &    invert ();
+    
 
     //------------------------------
     // Component-wise multiplication
@@ -1078,6 +1081,15 @@ Vec2<T>::negate ()
 
 template <class T>
 inline const Vec2<T> &
+Vec2<T>::invert ()
+{
+    x = T(1) / x;
+    y = T(1) / y;
+    return *this;
+}
+
+template <class T>
+inline const Vec2<T> &
 Vec2<T>::operator *= (const Vec2 &v)
 {
     x *= v.x;
@@ -1560,6 +1572,16 @@ Vec3<T>::negate ()
 
 template <class T>
 inline const Vec3<T> &
+Vec3<T>::invert ()
+{
+    x = T(1) / x;
+    y = T(1) / y;
+    z = T(1) / z;
+    return *this;
+}
+
+template <class T>
+inline const Vec3<T> &
 Vec3<T>::operator *= (const Vec3 &v)
 {
     x *= v.x;
@@ -1949,6 +1971,17 @@ Vec4<T>::negate ()
     y = -y;
     z = -z;
     w = -w;
+    return *this;
+}
+
+template <class T>
+inline const Vec4<T> &
+Vec4<T>::invert ()
+{
+    x = T(1) / x;
+    y = T(1) / y;
+    z = T(1) / z;
+    w = T(1) / w;
     return *this;
 }
 
