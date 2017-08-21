@@ -4,25 +4,7 @@ IF(BUILD_SHARED_LIBS)
     ADD_DEFINITIONS(-DIMATH_EXPORTS)
 ENDIF()
 
-ADD_LIBRARY ( Imath ${LIB_TYPE}
-  ImathBox.cpp
-  ImathRandom.cpp
-  ImathColorAlgo.cpp
-  ImathShear.cpp
-  ImathFun.cpp
-  ImathVec.cpp
-  ImathMatrixAlgo.cpp
-)
-TARGET_LINK_LIBRARIES(Imath Iex)
-
-
-INSTALL ( TARGETS
-  Imath
-  DESTINATION
-  lib
-)
-
-INSTALL ( FILES 
+SET(IMATH_HEADERS
   ImathBoxAlgo.h
   ImathBox.h
   ImathColorAlgo.h
@@ -37,7 +19,7 @@ INSTALL ( FILES
   ImathFun.h
   ImathGL.h
   ImathGLU.h
-  ImathHalfLimits.h
+  # ImathHalfLimits.h
   ImathInt64.h
   ImathInterval.h
   ImathLimits.h
@@ -56,6 +38,34 @@ INSTALL ( FILES
   ImathSphere.h
   ImathVecAlgo.h
   ImathVec.h
+)
+
+IF(IMATH_USE_HALF)
+  list(APPEND IMATH_HEADERS "ImathHalfLimits.h")
+ENDIF()
+
+ADD_LIBRARY ( Imath ${LIB_TYPE}
+  ImathBox.cpp
+  ImathRandom.cpp
+  ImathColorAlgo.cpp
+  ImathShear.cpp
+  ImathFun.cpp
+  ImathVec.cpp
+  ImathMatrixAlgo.cpp
+  ${IMATH_HEADERS}
+)
+
+TARGET_LINK_LIBRARIES(Imath Iex)
+
+
+INSTALL ( TARGETS
+  Imath
+  DESTINATION
+  lib
+)
+
+INSTALL ( FILES 
+  ${IMATH_HEADERS}
   DESTINATION
   include/OpenEXR
 )
