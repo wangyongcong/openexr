@@ -116,7 +116,7 @@ template <class T> class Vec2
     void		getValue (Vec2<S> &v) const;
 
     T *			getValue ();
-    const T *		getValue () const;
+    const T *	getValue () const;
 
     
     //---------
@@ -213,7 +213,50 @@ template <class T> class Vec2
     Vec2		operator / (T a) const;
 
 
-    //----------------------------------------------------------------
+	//------------------------
+	// Component-wise AND
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec2&		operator &= (const Vec2 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec2&		operator &= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec2			operator & (const Vec2 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec2			operator & (T a) const;
+
+
+	//------------------------
+	// Component-wise OR
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec2&		operator |= (const Vec2 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec2&		operator |= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec2			operator | (const Vec2 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec2			operator | (T a) const;
+
+	//------------------------
+	// Component-wise AND
+	//------------------------
+	//const Vec2 &	operator &= (const Vec2 &v);
+	//const Vec2 &	operator &= (T v);
+	//Vec2			operator & (const Vec2 &v) const;
+	//Vec2			operator & (T v) const;
+
+	//------------------------
+	// Component-wise OR
+	//------------------------
+	//const Vec2 &	operator |= (const Vec2 &v);
+	//const Vec2 &	operator |= (T v);
+	//Vec2			operator | (const Vec2 &v) const;
+	//Vec2			operator | (T v) const;
+
+	//----------------------------------------------------------------
     // Length and normalization:  If v.length() is 0.0, v.normalize()
     // and v.normalized() produce a null vector; v.normalizeExc() and
     // v.normalizedExc() throw a NullVecExc.
@@ -426,6 +469,34 @@ template <class T> class Vec3
     Vec3		operator / (T a) const;
 
 
+	//------------------------
+	// Component-wise AND
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec3&		operator &= (const Vec3 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec3&		operator &= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec3			operator & (const Vec3 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec3			operator & (T a) const;
+
+
+	//------------------------
+	// Component-wise OR
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec3&		operator |= (const Vec3 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec3&		operator |= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec3			operator | (const Vec3 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec3			operator | (T a) const;
+
+
     //----------------------------------------------------------------
     // Length and normalization:  If v.length() is 0.0, v.normalize()
     // and v.normalized() produce a null vector; v.normalizeExc() and
@@ -609,7 +680,34 @@ template <class T> class Vec4
     Vec4            operator / (T a) const;
 
 
-    //----------------------------------------------------------------
+	//------------------------
+	// Component-wise AND
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec4&		operator &= (const Vec4 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec4&		operator &= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec4			operator & (const Vec4 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec4			operator & (T a) const;
+
+
+	//------------------------
+	// Component-wise OR
+	//------------------------
+
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec4&		operator |= (const Vec4 &v);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	const Vec4&		operator |= (T a);
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec4			operator | (const Vec4 &v) const;
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	Vec4			operator | (T a) const;
+    
+	//----------------------------------------------------------------
     // Length and normalization:  If v.length() is 0.0, v.normalize()
     // and v.normalized() produce a null vector; v.normalizeExc() and
     // v.normalizedExc() throw a NullVecExc.
@@ -1153,6 +1251,78 @@ Vec2<T>::operator / (T a) const
 }
 
 template <class T>
+template<typename>
+inline const Vec2<T>&
+Vec2<T>::operator &= (const Vec2 &v)
+{
+	x &= v.x;
+	y &= v.y;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec2<T>&
+Vec2<T>::operator &= (T a)
+{
+	x &= a;
+	y &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec2<T>
+Vec2<T>::operator & (const Vec2 &v) const
+{
+	return{ x & v.x, y & v.y };
+}
+
+template <class T>
+template<typename>
+inline Vec2<T>
+Vec2<T>::operator & (T a) const
+{
+	return{ x & a, y & a };
+}
+
+template <class T>
+template<typename>
+inline const Vec2<T>&
+Vec2<T>::operator |= (const Vec2 &v)
+{
+	x |= v.x;
+	y |= v.y;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec2<T>&
+Vec2<T>::operator |= (T a)
+{
+	x |= a;
+	y |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec2<T>
+Vec2<T>::operator | (const Vec2 &v) const
+{
+	return{ x | v.x, y | v.y };
+}
+
+template <class T>
+template<typename>
+inline Vec2<T>
+Vec2<T>::operator | (T a) const
+{
+	return{ x | a, y | a };
+}
+
+template <class T>
 T
 Vec2<T>::lengthTiny () const
 {
@@ -1649,6 +1819,82 @@ Vec3<T>::operator / (T a) const
 }
 
 template <class T>
+template<typename>
+inline const Vec3<T>&
+Vec3<T>::operator &= (const Vec3 &v)
+{
+	x &= v.x;
+	y &= v.y;
+	z &= v.z;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec3<T>&
+Vec3<T>::operator &= (T a)
+{
+	x &= a;
+	y &= a;
+	z &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec3<T>
+Vec3<T>::operator & (const Vec3 &v) const
+{
+	return{ x & v.x, y & v.y, z & v.z };
+}
+
+template <class T>
+template<typename>
+inline Vec3<T>
+Vec3<T>::operator & (T a) const
+{
+	return{ x & a, y & a, z & a };
+}
+
+template <class T>
+template<typename>
+inline const Vec3<T>&
+Vec3<T>::operator |= (const Vec3 &v)
+{
+	x |= v.x;
+	y |= v.y;
+	z |= v.z;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec3<T>&
+Vec3<T>::operator |= (T a)
+{
+	x |= a;
+	y |= a;
+	z |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec3<T>
+Vec3<T>::operator | (const Vec3 &v) const
+{
+	return{ x | v.x, y | v.y, z | v.z };
+}
+
+template <class T>
+template<typename>
+inline Vec3<T>
+Vec3<T>::operator | (T a) const
+{
+	return{ x | a, y | a, z | a };
+}
+
+template <class T>
 T
 Vec3<T>::lengthTiny () const
 {
@@ -2055,6 +2301,86 @@ inline Vec4<T>
 Vec4<T>::operator / (T a) const
 {
     return Vec4 (x / a, y / a, z / a, w / a);
+}
+
+template <class T>
+template<typename>
+inline const Vec4<T>&
+Vec4<T>::operator &= (const Vec4 &v)
+{
+	x &= v.x;
+	y &= v.y;
+	z &= v.z;
+	w &= v.w;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec4<T>&
+Vec4<T>::operator &= (T a)
+{
+	x &= a;
+	y &= a;
+	z &= a;
+	w &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec4<T>
+Vec4<T>::operator & (const Vec4 &v) const
+{
+	return{ x & v.x, y & v.y, z & v.z, w & v.w };
+}
+
+template <class T>
+template<typename>
+inline Vec4<T>
+Vec4<T>::operator & (T a) const
+{
+	return{ x & a, y & a, z & a, w & a };
+}
+
+template <class T>
+template<typename>
+inline const Vec4<T>&
+Vec4<T>::operator |= (const Vec4 &v)
+{
+	x |= v.x;
+	y |= v.y;
+	z |= v.z;
+	w |= v.w;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline const Vec4<T>&
+Vec4<T>::operator |= (T a)
+{
+	x |= a;
+	y |= a;
+	z |= a;
+	w |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+inline Vec4<T>
+Vec4<T>::operator | (const Vec4 &v) const 
+{
+	return{ x | v.x, y | v.y, z | v.z, w | v.w };
+}
+
+template <class T>
+template<typename>
+inline Vec4<T>
+Vec4<T>::operator | (T a) const
+{
+	return{ x | a, y | a, z | a, w | a };
 }
 
 template <class T>
