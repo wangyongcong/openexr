@@ -87,6 +87,19 @@ template <class Vec> Vec        closestVertex (const Vec &v0,
                                                const Vec &v2, 
                                                const Vec &p);
 
+
+//-------------------------------------------------
+// Vec3 dot product with Vec4. 
+// Vec4 is treated as Vec3 that ignore w component.
+//-------------------------------------------------
+
+template<class T>
+T operator ^ (const Vec3<T> &v1, const Vec4<T> &v2);
+
+template<class T>
+T operator ^ (const Vec4<T> &v1, const Vec3<T> &v2);
+
+
 //---------------
 // Implementation
 //---------------
@@ -141,6 +154,19 @@ closestVertex(const Vec &v0,
     return nearest;
 }
 
+template<class T>
+inline T 
+operator ^ (const Vec3<T> &v1, const Vec4<T> &v2)
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
+
+template<class T>
+inline T
+operator ^ (const Vec4<T> &v1, const Vec3<T> &v2)
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 

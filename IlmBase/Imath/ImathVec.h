@@ -240,21 +240,6 @@ template <class T> class Vec2
 	template<typename = std::enable_if_t<std::is_integral<T>::value>>
 	Vec2			operator | (T a) const;
 
-	//------------------------
-	// Component-wise AND
-	//------------------------
-	//const Vec2 &	operator &= (const Vec2 &v);
-	//const Vec2 &	operator &= (T v);
-	//Vec2			operator & (const Vec2 &v) const;
-	//Vec2			operator & (T v) const;
-
-	//------------------------
-	// Component-wise OR
-	//------------------------
-	//const Vec2 &	operator |= (const Vec2 &v);
-	//const Vec2 &	operator |= (T v);
-	//Vec2			operator | (const Vec2 &v) const;
-	//Vec2			operator | (T v) const;
 
 	//----------------------------------------------------------------
     // Length and normalization:  If v.length() is 0.0, v.normalize()

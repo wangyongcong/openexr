@@ -112,6 +112,8 @@ class Box
     T			center () const;
     bool		intersects (const T &point) const;
     bool		intersects (const Box<T> &box) const;
+	bool		inside(const Vec2<T> &point) const;
+	bool		inside(T x, T y) const;
 
     unsigned int	majorAxis () const;
 
@@ -252,6 +254,22 @@ Box<T>::intersects(const Box<T> &box) const
     }
 
     return true;
+}
+
+template<class T>
+inline bool 
+Box<T>::inside(const Vec2<T> &point) const
+{
+	return (point.x >= min.x && point.y < max.x
+		&& point.y >= min.y && point.y < max.y);
+}
+
+template<class T>
+inline bool 
+Box<T>::inside(T x, T y) const
+{
+	return (x >= min.x && y < max.x
+		&& y >= min.y && y < max.y);
 }
 
 
