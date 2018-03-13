@@ -148,9 +148,11 @@ template <class T> class Color4
     //---------------------------------
 
     Color4 (const Color4 &v);
+	Color4 (const Color3<T> &v);
     template <class S> Color4 (const Color4<S> &v);
 
     const Color4 &	operator = (const Color4 &v);
+	const Color4 &  operator = (const Color3<T> &v);
 
 
     //----------------------
@@ -495,6 +497,16 @@ Color4<T>::Color4 (const Color4 &v)
 }
 
 template <class T>
+inline
+Color4<T>::Color4 (const Color3<T> &v)
+{
+	r = v.x;
+	g = v.y;
+	b = v.z;
+	a = T(1);
+}
+
+template <class T>
 template <class S>
 inline
 Color4<T>::Color4 (const Color4<S> &v)
@@ -514,6 +526,17 @@ Color4<T>::operator = (const Color4 &v)
     b = v.b;
     a = v.a;
     return *this;
+}
+
+template <class T>
+inline const Color4<T> &
+Color4<T>::operator = (const Color3<T> &v)
+{
+	r = v.x;
+	g = v.y;
+	b = v.z;
+	a = T(1);
+	return *this;
 }
 
 template <class T>
