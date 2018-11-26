@@ -14,13 +14,15 @@ DIST_SUBDIRS = \
 
 
 EXTRA_DIST = \
-	AUTHORS COPYING ChangeLog INSTALL LICENSE NEWS \
-	README README.CVS README.OSX \
-	README.cmake.txt README.namespacing README.git \
+	AUTHORS ChangeLog LICENSE NEWS \
+	README.md \
 	bootstrap \
 	config.windows/IlmBaseConfig.h \
-        CMakeLists.txt
+	CMakeLists.txt
 
+dist-hook:
+	cp -fpR $(abspath $(srcdir)/..)/cmake $(distdir)
+	find $(distdir)/cmake -type d ! -perm -700 -exec chmod u+rwx {} \;
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = IlmBase.pc

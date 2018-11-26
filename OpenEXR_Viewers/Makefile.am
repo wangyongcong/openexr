@@ -8,7 +8,13 @@ DIST_SUBDIRS = \
 	$(SUBDIRS) 
 
 EXTRA_DIST = \
-	AUTHORS COPYING ChangeLog INSTALL LICENSE NEWS \
-        README README.CVS README.OSX README.win32 bootstrap
+	ChangeLog \
+	LICENSE \
+	README.md \
+	bootstrap
+
+dist-hook:
+	cp -fpR $(abspath $(srcdir)/..)/cmake $(distdir)
+	find $(distdir)/cmake -type d ! -perm -700 -exec chmod u+rwx {} \;
 
 

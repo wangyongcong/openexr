@@ -12,12 +12,15 @@ DIST_SUBDIRS = \
 	$(SUBDIRS) 
 
 EXTRA_DIST = \
-	AUTHORS COPYING ChangeLog INSTALL LICENSE NEWS PATENTS \
-        README README.CVS README.OSX \
-	README.git README.namespacing README.cmake.txt \
+	AUTHORS ChangeLog LICENSE NEWS PATENTS \
+	README.md \
 	bootstrap openexr.m4 \
 	config.windows/OpenEXRConfig.h \
-        CMakeLists.txt
+	CMakeLists.txt
+
+dist-hook:
+	cp -fpR $(abspath $(srcdir)/..)/cmake $(distdir)
+	find $(distdir)/cmake -type d ! -perm -700 -exec chmod u+rwx {} \;
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = OpenEXR.pc
