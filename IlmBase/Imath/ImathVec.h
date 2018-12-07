@@ -217,20 +217,28 @@ template <class T> class Vec2
 	// Component-wise AND
 	//------------------------
 
-	const Vec2&		operator &= (const Vec2 &v);
-	const Vec2&		operator &= (T a);
-	Vec2			operator & (const Vec2 &v) const;
-	Vec2			operator & (T a) const;
+	template<class S=T>
+	const Vec2&		operator &= (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template<class S=T>
+	const Vec2&		operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template<class S=T>
+	Vec2			operator & (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template<class S=T>
+	Vec2			operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
 
 
 	//------------------------
 	// Component-wise OR
 	//------------------------
 
-	const Vec2&		operator |= (const Vec2 &v);
-	const Vec2&		operator |= (T a);
-	Vec2			operator | (const Vec2 &v) const;
-	Vec2			operator | (T a) const;
+	template<class S=T>
+	const Vec2&		operator |= (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template<class S=T>
+	const Vec2&		operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template<class S=T>
+	Vec2			operator | (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template<class S=T>
+	Vec2			operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
 
 
 	//----------------------------------------------------------------
@@ -450,20 +458,28 @@ template <class T> class Vec3
 	// Component-wise AND
 	//------------------------
 
-	const Vec3&		operator &= (const Vec3 &v);
-	const Vec3&		operator &= (T a);
-	Vec3			operator & (const Vec3 &v) const;
-	Vec3			operator & (T a) const;
+	template <class S=T>
+	const Vec3&		operator &= (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template <class S=T>
+	const Vec3&		operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template <class S=T>
+	Vec3			operator & (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template <class S=T>
+	Vec3			operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
 
 
 	//------------------------
 	// Component-wise OR
 	//------------------------
 
-	const Vec3&		operator |= (const Vec3 &v);
-	const Vec3&		operator |= (T a);
-	Vec3			operator | (const Vec3 &v) const;
-	Vec3			operator | (T a) const;
+	template <class S=T>
+	const Vec3&		operator |= (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template <class S=T>
+	const Vec3&		operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template <class S=T>
+	Vec3			operator | (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template <class S=T>
+	Vec3			operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
 
 
     //----------------------------------------------------------------
@@ -653,20 +669,28 @@ template <class T> class Vec4
 	// Component-wise AND
 	//------------------------
 
-	const Vec4&		operator &= (const Vec4 &v);
-	const Vec4&		operator &= (T a);
-	Vec4			operator & (const Vec4 &v) const;
-	Vec4			operator & (T a) const;
+	template <class S=T>
+	const Vec4&		operator &= (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template <class S=T>
+	const Vec4&		operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template <class S=T>
+	Vec4			operator & (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template <class S=T>
+	Vec4			operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
 
 
 	//------------------------
 	// Component-wise OR
 	//------------------------
 
-	const Vec4&		operator |= (const Vec4 &v);
-	const Vec4&		operator |= (T a);
-	Vec4			operator | (const Vec4 &v) const;
-	Vec4			operator | (T a) const;
+	template <class S=T>
+	const Vec4&		operator |= (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v);
+	template <class S=T>
+	const Vec4&		operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a);
+	template <class S=T>
+	Vec4			operator | (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const;
+	template <class S=T>
+	Vec4			operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const;
     
 	//----------------------------------------------------------------
     // Length and normalization:  If v.length() is 0.0, v.normalize()
@@ -1212,8 +1236,9 @@ Vec2<T>::operator / (T a) const
 }
 
 template <class T>
+template <class S>
 inline const Vec2<T>&
-Vec2<T>::operator &= (const Vec2 &v)
+Vec2<T>::operator &= (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x &= v.x;
 	y &= v.y;
@@ -1221,8 +1246,9 @@ Vec2<T>::operator &= (const Vec2 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec2<T>&
-Vec2<T>::operator &= (T a)
+Vec2<T>::operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x &= a;
 	y &= a;
@@ -1230,22 +1256,25 @@ Vec2<T>::operator &= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec2<T>
-Vec2<T>::operator & (const Vec2 &v) const
+Vec2<T>::operator & (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x & v.x, y & v.y };
 }
 
 template <class T>
+template <class S>
 inline Vec2<T>
-Vec2<T>::operator & (T a) const
+Vec2<T>::operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x & a, y & a };
 }
 
 template <class T>
+template <class S>
 inline const Vec2<T>&
-Vec2<T>::operator |= (const Vec2 &v)
+Vec2<T>::operator |= (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x |= v.x;
 	y |= v.y;
@@ -1253,8 +1282,9 @@ Vec2<T>::operator |= (const Vec2 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec2<T>&
-Vec2<T>::operator |= (T a)
+Vec2<T>::operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x |= a;
 	y |= a;
@@ -1262,15 +1292,17 @@ Vec2<T>::operator |= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec2<T>
-Vec2<T>::operator | (const Vec2 &v) const
+Vec2<T>::operator | (const Vec2<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x | v.x, y | v.y };
 }
 
 template <class T>
+template <class S>
 inline Vec2<T>
-Vec2<T>::operator | (T a) const
+Vec2<T>::operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x | a, y | a };
 }
@@ -1772,8 +1804,9 @@ Vec3<T>::operator / (T a) const
 }
 
 template <class T>
+template <class S>
 inline const Vec3<T>&
-Vec3<T>::operator &= (const Vec3 &v)
+Vec3<T>::operator &= (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x &= v.x;
 	y &= v.y;
@@ -1782,8 +1815,9 @@ Vec3<T>::operator &= (const Vec3 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec3<T>&
-Vec3<T>::operator &= (T a)
+Vec3<T>::operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x &= a;
 	y &= a;
@@ -1792,22 +1826,25 @@ Vec3<T>::operator &= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec3<T>
-Vec3<T>::operator & (const Vec3 &v) const
+Vec3<T>::operator & (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x & v.x, y & v.y, z & v.z };
 }
 
 template <class T>
+template <class S>
 inline Vec3<T>
-Vec3<T>::operator & (T a) const
+Vec3<T>::operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x & a, y & a, z & a };
 }
 
 template <class T>
+template <class S>
 inline const Vec3<T>&
-Vec3<T>::operator |= (const Vec3 &v)
+Vec3<T>::operator |= (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x |= v.x;
 	y |= v.y;
@@ -1816,8 +1853,9 @@ Vec3<T>::operator |= (const Vec3 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec3<T>&
-Vec3<T>::operator |= (T a)
+Vec3<T>::operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x |= a;
 	y |= a;
@@ -1826,15 +1864,17 @@ Vec3<T>::operator |= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec3<T>
-Vec3<T>::operator | (const Vec3 &v) const
+Vec3<T>::operator | (const Vec3<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x | v.x, y | v.y, z | v.z };
 }
 
 template <class T>
+template <class S>
 inline Vec3<T>
-Vec3<T>::operator | (T a) const
+Vec3<T>::operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x | a, y | a, z | a };
 }
@@ -2249,8 +2289,9 @@ Vec4<T>::operator / (T a) const
 }
 
 template <class T>
+template <class S>
 inline const Vec4<T>&
-Vec4<T>::operator &= (const Vec4 &v)
+Vec4<T>::operator &= (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x &= v.x;
 	y &= v.y;
@@ -2260,8 +2301,9 @@ Vec4<T>::operator &= (const Vec4 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec4<T>&
-Vec4<T>::operator &= (T a)
+Vec4<T>::operator &= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x &= a;
 	y &= a;
@@ -2271,22 +2313,25 @@ Vec4<T>::operator &= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec4<T>
-Vec4<T>::operator & (const Vec4 &v) const
+Vec4<T>::operator & (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x & v.x, y & v.y, z & v.z, w & v.w };
 }
 
 template <class T>
+template <class S>
 inline Vec4<T>
-Vec4<T>::operator & (T a) const
+Vec4<T>::operator & (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x & a, y & a, z & a, w & a };
 }
 
 template <class T>
+template <class S>
 inline const Vec4<T>&
-Vec4<T>::operator |= (const Vec4 &v)
+Vec4<T>::operator |= (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v)
 {
 	x |= v.x;
 	y |= v.y;
@@ -2296,8 +2341,9 @@ Vec4<T>::operator |= (const Vec4 &v)
 }
 
 template <class T>
+template <class S>
 inline const Vec4<T>&
-Vec4<T>::operator |= (T a)
+Vec4<T>::operator |= (typename std::enable_if<std::is_integral<S>::value, S>::type a)
 {
 	x |= a;
 	y |= a;
@@ -2307,15 +2353,17 @@ Vec4<T>::operator |= (T a)
 }
 
 template <class T>
+template <class S>
 inline Vec4<T>
-Vec4<T>::operator | (const Vec4 &v) const 
+Vec4<T>::operator | (const Vec4<typename std::enable_if<std::is_integral<S>::value, S>::type> &v) const
 {
 	return{ x | v.x, y | v.y, z | v.z, w | v.w };
 }
 
 template <class T>
+template <class S>
 inline Vec4<T>
-Vec4<T>::operator | (T a) const
+Vec4<T>::operator | (typename std::enable_if<std::is_integral<S>::value, S>::type a) const
 {
 	return{ x | a, y | a, z | a, w | a };
 }
