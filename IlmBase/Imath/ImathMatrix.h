@@ -570,6 +570,11 @@ template <class T> class Matrix44
     const Matrix44 &    operator *= (T a);
     Matrix44            operator * (T a) const;
 
+	//------------------------------
+	// Component-wise OR
+	//------------------------------
+	const Matrix44 &	operator |= (const Matrix44 &v);
+	Matrix44			operator | (const Matrix44 &v) const;
 
     //-----------------------------------
     // Matrix-times-matrix multiplication
@@ -2483,6 +2488,52 @@ Matrix44<T>::operator * (T a) const
                      x[3][1] * a,
                      x[3][2] * a,
                      x[3][3] * a);
+}
+
+template <class T>
+const Matrix44<T> &
+Matrix44<T>::operator |= (const Matrix44 &v)
+{
+	x[0][0] |= v[0][0];
+	x[0][1] |= v[0][1];
+	x[0][2] |= v[0][2];
+	x[0][3] |= v[0][3];
+	x[1][0] |= v[1][0];
+	x[1][1] |= v[1][1];
+	x[1][2] |= v[1][2];
+	x[1][3] |= v[1][3];
+	x[2][0] |= v[2][0];
+	x[2][1] |= v[2][1];
+	x[2][2] |= v[2][2];
+	x[2][3] |= v[2][3];
+	x[3][0] |= v[3][0];
+	x[3][1] |= v[3][1];
+	x[3][2] |= v[3][2];
+	x[3][3] |= v[3][3];
+	
+	return *this;
+}
+
+template <class T>
+Matrix44<T>
+Matrix44<T>::operator | (const Matrix44 &v) const
+{
+	return Matrix44 (x[0][0] | v[0][0],
+					 x[0][1] | v[0][1],
+					 x[0][2] | v[0][2],
+					 x[0][3] | v[0][3],
+					 x[1][0] | v[1][0],
+					 x[1][1] | v[1][1],
+					 x[1][2] | v[1][2],
+					 x[1][3] | v[1][3],
+					 x[2][0] | v[2][0],
+					 x[2][1] | v[2][1],
+					 x[2][2] | v[2][2],
+					 x[2][3] | v[2][3],
+					 x[3][0] | v[3][0],
+					 x[3][1] | v[3][1],
+					 x[3][2] | v[3][2],
+					 x[3][3] | v[3][3]);
 }
 
 template <class T>
